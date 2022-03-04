@@ -8,8 +8,9 @@ public class RectangleBehaviour : MonoBehaviour
 {
     public Color NextColor { set; get; }
     public float timeTillDisapear { set; get; }
+    public bool IsEnabled {get; set; }
     void Start() {
-        
+        IsEnabled = true;
     }
 
     void Update() {
@@ -26,5 +27,6 @@ public class RectangleBehaviour : MonoBehaviour
         GetComponent<Renderer>().material.color = chosenColor;
         yield return new WaitForSeconds(timeTillDisapear);
         GetComponent<Renderer>().enabled = false;
+        IsEnabled = false;
     }
 }

@@ -1,16 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class RectContainer : MonoBehaviour
 {
     static System.Random random = new System.Random();
+    System.Diagnostics.Stopwatch watch = System.Diagnostics.Stopwatch.StartNew();
     Color[] usedColors = {Color.red, Color.blue, Color.green, Color.cyan, Color.gray, Color.yellow, Color.black, Color.magenta};
-    Vector2 minSize = new Vector2(0.2f, 0.2f);
-    Vector2 maxSize = new Vector2(2f, 2f);
+    List<RectangleBehaviour> rectangles;
+    Vector2 minSize = new Vector2(2f, 2f);
+    Vector2 maxSize = new Vector2(20f, 20f);
     void Start()
     {
-        int n = 5;
+        int n = 3;
+        rectangles = new List<RectangleBehaviour>();
         StartGame(n);
     }
 
@@ -19,7 +23,7 @@ public class RectContainer : MonoBehaviour
         
         for(int i = 0; i < n; i++) {
             var gameObject = Instantiate(gameObjectPattern) as RectangleBehaviour;
-
+            rectangles.Add(gameObject);
             Vector2 newSize = getRandomVector(minSize, maxSize);
             gameObject.transform.localScale = newSize;
             var cameraY = Camera.main.orthographicSize * 2f;
@@ -34,9 +38,24 @@ public class RectContainer : MonoBehaviour
         }
     }
 
+    private int GetEnabledNumber() {
+        int sum = 0;
+        foreach(var rectangle in rectangles) {
+            if(rectangle.IsEnabled) {
+                sum += 1;
+            }
+        }
+        return sum;
+    }
+
     void Update()
     {
-        
+        var sum = GetEnabledNumber();
+        GameObject.Find("LeftCount").GetComponent<Text>().text = $"Left: {sum}";
+        GameObject.Find("Timer").GetComponent<Text>().text = $"Time: {watch.Elapsed.ToString(@"m\:ss\.ff")}";
+        if(sum == 0) {
+            watch.Stop();
+        }
     }
 
     float getRandom(float minValue, float maxValue) {
