@@ -5,17 +5,17 @@ using UnityEngine.UI;
 
 public class RectContainer : MonoBehaviour
 {
-    static System.Random random = new System.Random();
-    System.Diagnostics.Stopwatch watch = System.Diagnostics.Stopwatch.StartNew();
+    public static int N {get; set;}
+    private System.Diagnostics.Stopwatch watch = System.Diagnostics.Stopwatch.StartNew();
+    private static System.Random random = new System.Random();
     Color[] usedColors = {Color.red, Color.blue, Color.green, Color.cyan, Color.gray, Color.yellow, Color.black, Color.magenta};
     List<RectangleBehaviour> rectangles;
     Vector2 minSize = new Vector2(2f, 2f);
     Vector2 maxSize = new Vector2(20f, 20f);
-    void Start()
-    {
-        int n = 3;
+    
+    void Awake() {
         rectangles = new List<RectangleBehaviour>();
-        StartGame(n);
+        StartGame(N);
     }
 
     void StartGame(int n) {
@@ -55,6 +55,7 @@ public class RectContainer : MonoBehaviour
         GameObject.Find("Timer").GetComponent<Text>().text = $"Time: {watch.Elapsed.ToString(@"m\:ss\.ff")}";
         if(sum == 0) {
             watch.Stop();
+            GameObject.Find("GameFinishedText").GetComponent<Text>().enabled = true;
         }
     }
 

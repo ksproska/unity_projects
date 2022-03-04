@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class InputBehaviour : MonoBehaviour
 {
@@ -42,5 +43,7 @@ public class InputBehaviour : MonoBehaviour
             GameObject.Find("ErrorText").GetComponent<Text>().text = $"Value not set.";
             return;
         }
+        RectContainer.N = N;
+        SceneManager.LoadScene("GameScene");
     }
 }
