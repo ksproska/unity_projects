@@ -11,10 +11,14 @@ public class RectContainer : MonoBehaviour
     void Start()
     {
         int n = 5;
-        var gameObjectPattern = Resources.Load("Rectangle", typeof(GameObject));
+        StartGame(n);
+    }
+
+    void StartGame(int n) {
+        var gameObjectPattern = Resources.Load("Rectangle", typeof(RectangleBehaviour));
         
         for(int i = 0; i < n; i++) {
-            var gameObject = Instantiate(gameObjectPattern) as GameObject;
+            var gameObject = Instantiate(gameObjectPattern) as RectangleBehaviour;
 
             Vector2 newSize = getRandomVector(minSize, maxSize);
             gameObject.transform.localScale = newSize;
@@ -25,6 +29,8 @@ public class RectContainer : MonoBehaviour
             Vector2 moveVector = getRandomVector(minOffset, max0ffset);
             gameObject.transform.position = moveVector;
             gameObject.GetComponent<Renderer>().material.color = getRandomColor();
+            gameObject.NextColor = getRandomColor();
+            gameObject.timeTillDisapear = getRandom(0f, 0.5f);
         }
     }
 

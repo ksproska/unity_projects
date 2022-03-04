@@ -6,6 +6,8 @@ using UnityEngine.EventSystems;
 
 public class RectangleBehaviour : MonoBehaviour
 {
+    public Color NextColor { set; get; }
+    public float timeTillDisapear { set; get; }
     void Start() {
         
     }
@@ -17,7 +19,7 @@ public class RectangleBehaviour : MonoBehaviour
     private void OnMouseDown()
     {
         // Debug.Log("works");
-        StartCoroutine(AfterClickRectangleBehaviour(Color.red));
+        StartCoroutine(AfterClickRectangleBehaviour(NextColor, timeTillDisapear));
     }
 
     IEnumerator AfterClickRectangleBehaviour(Color chosenColor, float timeTillDisapear = 0.5f) {
