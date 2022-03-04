@@ -14,11 +14,13 @@ public class RectangleBehaviour : MonoBehaviour
     {
         Vector2 newSize = getRandomVector(minSize, maxSize);
         gameObject.transform.localScale = newSize;
-        Vector2 minOffset = new Vector2(-Screen.width/2 + newSize.x/2, -Screen.height/2 + newSize.y/2);
-        Vector2 max0ffset = new Vector2(Screen.width/2 - newSize.x/2, Screen.height/2 - newSize.y/2);
+        var cameraY = Camera.main.orthographicSize * 2f;
+        var cameraX = cameraY * Camera.main.aspect;
+        Vector2 minOffset = new Vector2(-cameraX/2 + newSize.x/2, -cameraY/2 + newSize.y/2);
+        Vector2 max0ffset = new Vector2(cameraX/2 - newSize.x/2, cameraY/2 - newSize.y/2);
         Vector2 moveVector = getRandomVector(minOffset, max0ffset);
         gameObject.transform.position = moveVector;
-        Debug.Log($"{moveVector.x}, {moveVector.y}");
+        // Debug.Log($"{moveVector.x}, {moveVector.y}");
     }
 
     void Update()
