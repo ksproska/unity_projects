@@ -14,7 +14,7 @@ public class GameController : MonoBehaviour
     private Card gameObjectPattern;
     private bool TempBlock = false;
     private Text scoreText, gameEndText;
-    private Button restartButton;
+    // private Button restartButton;
 
     private static System.Random random = new System.Random();
 
@@ -22,7 +22,7 @@ public class GameController : MonoBehaviour
     {
         scoreText = GameObject.Find("ScoreText").GetComponent<Text>();
         gameEndText = GameObject.Find("GameEndText").GetComponent<Text>();
-        restartButton = GameObject.Find("RestartButton").GetComponent<Button>();
+        // restartButton = GameObject.Find("RestartButton").GetComponent<Button>();
         if(SizeId >= 1) { colsNr = 4; }
         if(SizeId >= 2) { rowsNr = 4; }
         SetupCards();
@@ -63,7 +63,7 @@ public class GameController : MonoBehaviour
         }
         Card.DisplayedCards = new List<Card>();
         score = 0;
-        restartButton.gameObject.SetActive(false);
+        // restartButton.gameObject.SetActive(false);
         gameEndText.text = $"";
     }
 
@@ -88,12 +88,12 @@ public class GameController : MonoBehaviour
         }
         scoreText.text = $"Score: {score}";
         gameEndText.text = $"You lost";
-        restartButton.gameObject.SetActive(true);
+        // restartButton.gameObject.SetActive(true);
     }
 
     private void EndWon() {
         gameEndText.text = $"You won!";
-        restartButton.gameObject.SetActive(true);
+        // restartButton.gameObject.SetActive(true);
     }
 
     private void runGame() {
