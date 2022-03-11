@@ -14,6 +14,7 @@ public class GameController : MonoBehaviour
     private Card gameObjectPattern;
     private bool TempBlock = false;
     private Text scoreText, gameEndText;
+    private Button restartButton;
 
     private static System.Random random = new System.Random();
 
@@ -21,6 +22,7 @@ public class GameController : MonoBehaviour
     {
         scoreText = GameObject.Find("ScoreText").GetComponent<Text>();
         gameEndText = GameObject.Find("GameEndText").GetComponent<Text>();
+        restartButton = GameObject.Find("RestartButton").GetComponent<Button>();
         if(SizeId >= 1) { colsNr = 4; }
         if(SizeId >= 2) { rowsNr = 4; }
         SetupCards();
@@ -53,13 +55,16 @@ public class GameController : MonoBehaviour
         }
     }
 
-    private void setNewGame() {
-        Card.DisplayedCards = new List<Card>();
+    public void setNewGame() {
         cards = cards.OrderBy(x => random.Next()).ToArray();
         for(int i = 0; i < cards.Count(); i++) {
             cards[i].MatchingId = i % (cards.Count() / 2);
             cards[i].Reset();
         }
+        Card.DisplayedCards = new List<Card>();
+        score = 0;
+        restartButton.gameObject.SetActive(false);
+        gameEndText.text = $"";
     }
 
     void Update()
@@ -78,15 +83,17 @@ public class GameController : MonoBehaviour
 
     private void EndLost() {
         foreach (var item in cards)
-            {
-                item.gameObject.SetActive(false);
-            }
-            scoreText.text = $"Score: {score}";
-            gameEndText.text = $"You lost";
+        {
+            item.gameObject.SetActive(false);
+        }
+        scoreText.text = $"Score: {score}";
+        gameEndText.text = $"You lost";
+        restartButton.gameObject.SetActive(true);
     }
 
     private void EndWon() {
         gameEndText.text = $"You won!";
+        restartButton.gameObject.SetActive(true);
     }
 
     private void runGame() {
@@ -97,18 +104,18 @@ public class GameController : MonoBehaviour
             if(chosen.Count() > 0 
             && chosen.Where(x => x.MatchingId == chosen[0].MatchingId).Count() == chosen.Count()) {
                 TempBlock = true;
-                StartCoroutine(WaitToRemove(chosen.ToArray(), 0.5f));
+                StartCoroutine(WaitToRemove(chosen.ToArray(), 0.5f, 6));
             }
             else
             {
                 TempBlock = true;
-                StartCoroutine(WaitToHide(chosen.ToArray(), 1f));
+                StartCoroutine(WaitToHide(chosen.ToArray(), 1f, -4));
             }
         }
     }
 
-    IEnumerator WaitToHide(Card[] chosen, float timeTillDisapear) {
-        score -= 2;
+    IEnumerator WaitToHide(Card[] chosen, float timeTillDisapear, int scoreDiff) {
+        score += scoreDiff;
         yield return new WaitForSeconds(timeTillDisapear);
         foreach(var item in chosen) {
             item.Hide();
@@ -116,8 +123,8 @@ public class GameController : MonoBehaviour
         Card.DisplayedCards = new List<Card>();
         TempBlock = false;
     }
-    IEnumerator WaitToRemove(Card[] chosen, float timeTillDisapear) {
-        score += 10;
+    IEnumerator WaitToRemove(Card[] chosen, float timeTillDisapear, int scoreDiff) {
+        score += scoreDiff;
         yield return new WaitForSeconds(timeTillDisapear);
         foreach(var item in chosen) {
             item.Remove();
