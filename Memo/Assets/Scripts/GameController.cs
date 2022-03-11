@@ -4,9 +4,25 @@ using UnityEngine;
 using System.Linq;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
 public class GameController : MonoBehaviour
 {
+    [SerializeField]
+    private InputActionMap gameplayActions;
+    [SerializeField]
+    private string messageLost = $"You lost";
+    [SerializeField]
+    private string messageWin = $"You won!";
+    [SerializeField]
+    private int pointsWin = 6;
+    [SerializeField]
+    private int pointsLost = -4;
+    [SerializeField]
+    private float deltaTimeWrong = 1f;
+    [SerializeField]
+    private float deltaTimeRight = 0.5f;
+
     public static int SizeId { get; set; }
     private int score = 0, rowsNr = 2, colsNr = 2;
     private Card[] cards;
@@ -18,6 +34,14 @@ public class GameController : MonoBehaviour
 
     private static System.Random random = new System.Random();
 
+    private void OnEnable() {
+        gameplayActions.Enable();
+    }
+
+    private void OnDisable() {
+        gameplayActions.Disable();
+    }
+
     void Awake()
     {
         scoreText = GameObject.Find("ScoreText").GetComponent<Text>();
@@ -27,6 +51,11 @@ public class GameController : MonoBehaviour
         if(SizeId >= 2) { rowsNr = 4; }
         SetupCards();
         setNewGame();
+    }
+    
+    void Start()
+    {
+        gameplayActions["restart"].performed += (x => setNewGame());
     }
 
     private void SetupCards() {
@@ -87,12 +116,12 @@ public class GameController : MonoBehaviour
             item.gameObject.SetActive(false);
         }
         scoreText.text = $"Score: {score}";
-        gameEndText.text = $"You lost";
+        gameEndText.text = messageLost;
         // restartButton.gameObject.SetActive(true);
     }
 
     private void EndWon() {
-        gameEndText.text = $"You won!";
+        gameEndText.text = messageWin;
         // restartButton.gameObject.SetActive(true);
     }
 
@@ -104,12 +133,12 @@ public class GameController : MonoBehaviour
             if(chosen.Count() > 0 
             && chosen.Where(x => x.MatchingId == chosen[0].MatchingId).Count() == chosen.Count()) {
                 TempBlock = true;
-                StartCoroutine(WaitToRemove(chosen.ToArray(), 0.5f, 6));
+                StartCoroutine(WaitToRemove(chosen.ToArray(), deltaTimeRight, pointsWin));
             }
             else
             {
                 TempBlock = true;
-                StartCoroutine(WaitToHide(chosen.ToArray(), 1f, -4));
+                StartCoroutine(WaitToHide(chosen.ToArray(), deltaTimeWrong, pointsLost));
             }
         }
     }
