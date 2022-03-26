@@ -2,7 +2,8 @@ using System.Collections.Generic;
 using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
-    private float speed = 2f;
+    [SerializeField]
+    public float speed = 2f;
     private Rigidbody2D body;
  
     private void Awake()

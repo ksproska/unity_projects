@@ -4,17 +4,19 @@ using UnityEngine;
 
 public class MovingPlatform : MonoBehaviour
 {
-    float speed = 1.5f;
+    [SerializeField]
+    public float speed = 1.5f;
     Rigidbody2D platform;
     float startPosition;
     float endPosition;
-    float widthMovement = 3f;
+    [SerializeField]
+    public float widthMovementOffset = 3f;
     bool moveRight = true;
     void Awake()
     {
         platform = gameObject.GetComponent<Rigidbody2D>();
-        startPosition = platform.position.x - widthMovement/2;
-        endPosition = startPosition + widthMovement/2;
+        startPosition = platform.position.x - widthMovementOffset/2;
+        endPosition = startPosition + widthMovementOffset/2;
     }
     
     private void FixedUpdate() {
