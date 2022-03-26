@@ -24,8 +24,8 @@ public class PlayerMovement : MonoBehaviour
  
     private void Update()
     {
-        if (Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.UpArrow))
-            body.velocity = new Vector2(body.velocity.x, speed);
+        if (Input.GetKeyDown(KeyCode.Space))
+            body.AddForce(new Vector2(0, 1) * 400f);
         if (Input.GetKey(KeyCode.RightArrow))
             body.velocity = new Vector2(speed, body.velocity.y);
         if (Input.GetKey(KeyCode.LeftArrow))
