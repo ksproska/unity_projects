@@ -1,11 +1,20 @@
 using System.Collections.Generic;
 using UnityEngine;
+// using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField]
     public float speed = 2f;
     private Rigidbody2D body;
     private Rigidbody2D throwable;
+
+    // private void OnEnable() {
+    //     gameplayActions.Enable();
+    // }
+
+    // private void OnDisable() {
+    //     gameplayActions.Disable();
+    // }
  
     private void Awake()
     {
@@ -21,7 +30,7 @@ public class PlayerMovement : MonoBehaviour
             body.velocity = new Vector2(speed, body.velocity.y);
         if (Input.GetKey(KeyCode.LeftArrow))
             body.velocity = new Vector2(-speed, body.velocity.y);
-        if (Input.GetKey(KeyCode.DownArrow)){
+        if (Input.GetButtonDown("Fire1")) { //left ctrl
             var throwed = Instantiate(throwable) as Rigidbody2D;
         }
     }
