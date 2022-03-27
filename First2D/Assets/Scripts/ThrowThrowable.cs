@@ -12,12 +12,18 @@ public class ThrowThrowable : MonoBehaviour
 
     void Start()
     {
-        throwable.AddForce(new Vector2(1, 1)*2f, ForceMode2D.Impulse);
-        Destroy(gameObject, 3);
+        throwable.AddForce(new Vector2(1, 0)*2f, ForceMode2D.Impulse);
+        Destroy(gameObject, 2);
     }
 
     void Update()
     {
-        throwable.position += new Vector2(1, 1)*2f * Time.deltaTime;
+        throwable.position += new Vector2(1, 0)*2f * Time.deltaTime;
+    }
+
+    private void OnCollisionEnter2D(Collision2D other) {
+        if(other.gameObject.tag == "BadGuy") {
+            Destroy(gameObject, 0);
+        }
     }
 }

@@ -42,6 +42,18 @@ public class PlayerMovement : MonoBehaviour
         animator.SetFloat("SpeedBack", Mathf.Abs(body.velocity.x));
     }
 
+    void FixedUpdate()
+    {
+        if (body.velocity.x < -0.01)
+         {
+             transform.localRotation = Quaternion.Euler(0, 180, 0);
+         }
+         else if (body.velocity.x > 0.01)
+         {
+             transform.localRotation = Quaternion.Euler(0, 0, 0);
+         }
+    }
+
     IEnumerator changeAnimationNormal(float sec) {
         yield return new WaitForSeconds(sec);
         animator.SetBool("Throws", false);

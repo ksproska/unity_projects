@@ -16,7 +16,7 @@ public class MovingPlatform : MonoBehaviour
     {
         platform = gameObject.GetComponent<Rigidbody2D>();
         startPosition = platform.position.x - widthMovementOffset/2;
-        endPosition = startPosition + widthMovementOffset/2;
+        endPosition = startPosition + widthMovementOffset;
     }
     
     private void FixedUpdate() {

@@ -5,11 +5,15 @@ using UnityEngine.SceneManagement;
 
 public class DeathZone : MonoBehaviour
 {
-    void OnTriggerEnter(Collider other)
+    void OnTriggerEnter2D(Collider2D other)
     {
         //SceneManager.LoadScene ("Level1");
         if (other.tag == "Player") {
             SceneManager.LoadScene ("Level1");
+        }
+        else
+        {
+            DestroyImmediate(other);
         }
     }
 }
