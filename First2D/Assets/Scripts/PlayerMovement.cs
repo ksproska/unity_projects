@@ -10,6 +10,10 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D throwable;
     public Animator animator;
 
+    [SerializeField]
+    public AudioSource runningSoundSource;
+    public AudioSource throwingSoundSource;
+
     // private void OnEnable() {
     //     gameplayActions.Enable();
     // }
@@ -23,6 +27,7 @@ public class PlayerMovement : MonoBehaviour
         body = GetComponent<Rigidbody2D>();
         throwable = Resources.Load("Throwable", typeof(Rigidbody2D)) as Rigidbody2D;
         body.freezeRotation = true;
+        runningSoundSource.enabled = true;
     }
  
     private void Update()
@@ -37,6 +42,7 @@ public class PlayerMovement : MonoBehaviour
             var throwed = Instantiate(throwable) as Rigidbody2D;
             animator.SetBool("Throws", true);
             StartCoroutine(changeAnimationNormal(0.5f));
+            throwingSoundSource.Play();
         }
         animator.SetFloat("SpeedUp", body.velocity.y);
         animator.SetFloat("SpeedBack", Mathf.Abs(body.velocity.x));
@@ -52,6 +58,13 @@ public class PlayerMovement : MonoBehaviour
          {
              transform.localRotation = Quaternion.Euler(0, 0, 0);
          }
+        if(body.velocity.x == 0 && runningSoundSource.isPlaying) {
+            runningSoundSource.Stop();
+        }
+        else if(body.velocity.x != 0 && !runningSoundSource.isPlaying)
+        {
+            runningSoundSource.Play();
+        }
     }
 
     IEnumerator changeAnimationNormal(float sec) {

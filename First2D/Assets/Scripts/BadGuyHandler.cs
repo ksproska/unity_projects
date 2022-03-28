@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BadGuyHandler : MonoBehaviour
 {
-    private int hitTimes = 5;
+    private int hitTimes = 3;
     public Animator animator;
     private Rigidbody2D body;
     void Start()

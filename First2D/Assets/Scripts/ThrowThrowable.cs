@@ -23,7 +23,7 @@ public class ThrowThrowable : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other) {
         if(other.gameObject.tag == "BadGuy") {
-            Destroy(gameObject, 0);
+            Destroy(gameObject, 0.1f);
         }
     }
 }
