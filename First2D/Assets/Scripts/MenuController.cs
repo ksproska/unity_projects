@@ -8,6 +8,10 @@ public class MenuController : MonoBehaviour
     Button startButton;
     AudioSource backgroundMusic;
     float previousState;
+    void Awake()
+    {
+        DestroyAllDontDestroyOnLoadObjects();
+    }
     void Start()
     {
         startButton = GameObject.Find("StartGame").GetComponent<Button>();
@@ -36,5 +40,13 @@ public class MenuController : MonoBehaviour
         var temp = volumeSlider.value;
         volumeSlider.value = previousState;
         previousState = temp;
+    }
+
+    public void DestroyAllDontDestroyOnLoadObjects() {
+        var go = new GameObject("Sacrificial Lamb");
+        DontDestroyOnLoad(go);
+        foreach(var root in go.scene.GetRootGameObjects())
+            Destroy(root);
+
     }
 }

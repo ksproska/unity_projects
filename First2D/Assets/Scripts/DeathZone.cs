@@ -9,11 +9,12 @@ public class DeathZone : MonoBehaviour
     {
         //SceneManager.LoadScene ("Level1");
         if (other.tag == "Player") {
-            SceneManager.LoadScene ("Level1");
+            Scene scene = SceneManager.GetActiveScene();
+            SceneManager.LoadScene(scene.name);
         }
         else
         {
-            DestroyImmediate(other);
+            Destroy(other, 0);
         }
     }
 }

@@ -13,6 +13,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     public AudioSource runningSoundSource;
     public AudioSource throwingSoundSource;
+    private int collisions;
 
     // private void OnEnable() {
     //     gameplayActions.Enable();
@@ -29,10 +30,18 @@ public class PlayerMovement : MonoBehaviour
         body.freezeRotation = true;
         runningSoundSource.enabled = true;
     }
+
+    private void OnCollisionEnter2D(Collision2D other) {
+        collisions += 1;
+    }
+
+    private void OnCollisionExit2D(Collision2D other) {
+        collisions -= 1;
+    }
  
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && collisions > 0)
             body.AddForce(new Vector2(0, 1) * 400f);
         if (Input.GetKey(KeyCode.RightArrow))
             body.velocity = new Vector2(speed, body.velocity.y);
