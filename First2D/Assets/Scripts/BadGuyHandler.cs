@@ -6,6 +6,7 @@ public class BadGuyHandler : MonoBehaviour
 {
     private int hitTimes = 3;
     public Animator animator;
+    public AudioSource hitSoundSource;
     private Rigidbody2D body;
     void Start()
     {
@@ -42,5 +43,9 @@ public class BadGuyHandler : MonoBehaviour
     IEnumerator notHit(float sec) {
         yield return new WaitForSeconds(sec);
         animator.SetBool("IsHit", false);
+    }
+
+    public void RunHitSound() {
+        hitSoundSource.Play();
     }
 }

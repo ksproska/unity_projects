@@ -20,7 +20,7 @@ public class PlayerMovement : MonoBehaviour
         body = GetComponent<Rigidbody2D>();
         throwable = Resources.Load("Throwable", typeof(Rigidbody2D)) as Rigidbody2D;
         body.freezeRotation = true;
-        runningSoundSource.enabled = true;
+        runningSoundSource.enabled = true; //?????
     }
 
     private void OnCollisionEnter2D(Collision2D other) {
@@ -51,8 +51,12 @@ public class PlayerMovement : MonoBehaviour
             var throwed = Instantiate(throwable) as Rigidbody2D;
             animator.SetBool("Throws", true);
             StartCoroutine(changeAnimationNormal(0.5f));
-            throwingSoundSource.Play();
+            PlayThrowingSound();
         }
+    }
+
+    public void PlayThrowingSound() {
+        throwingSoundSource.Play();
     }
 
     private void FliperCheck() {
