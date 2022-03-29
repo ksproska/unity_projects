@@ -1,0 +1,54 @@
+{
+    "name": "PlayerInputActions",
+    "maps": [
+        {
+            "name": "Movement",
+            "id": "2fc467b5-1a65-48fa-97f7-b28f48814d54",
+            "actions": [
+                {
+                    "name": "Jump",
+                    "type": "Button",
+                    "id": "c94f2cc3-6f99-477f-a759-e964d71714ce",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Throw",
+                    "type": "Button",
+                    "id": "4d5beaa2-9d20-47d5-99b0-db5597de9373",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "e80191e2-993a-4c1e-be89-768daeb67bb8",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c0373e30-6ee2-47ed-80a0-2a2e405e2a46",
+                    "path": "<Keyboard>/leftCtrl",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Throw",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

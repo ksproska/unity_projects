@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Collections;
-// using UnityEngine.InputSystem;
+using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField]
@@ -15,14 +15,6 @@ public class PlayerMovement : MonoBehaviour
     public AudioSource throwingSoundSource;
     private int collisions;
 
-    // private void OnEnable() {
-    //     gameplayActions.Enable();
-    // }
-
-    // private void OnDisable() {
-    //     gameplayActions.Disable();
-    // }
- 
     private void Awake()
     {
         body = GetComponent<Rigidbody2D>();
@@ -41,32 +33,40 @@ public class PlayerMovement : MonoBehaviour
  
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && collisions > 0)
-            body.AddForce(new Vector2(0, 1) * 400f);
         if (Input.GetKey(KeyCode.RightArrow))
             body.velocity = new Vector2(speed, body.velocity.y);
         if (Input.GetKey(KeyCode.LeftArrow))
             body.velocity = new Vector2(-speed, body.velocity.y);
-        if (Input.GetButtonDown("Fire1")) { //left ctrl
+    }
+
+    public void Jump(InputAction.CallbackContext context) {
+        // Debug.Log(context.phase);
+        if (context.performed && collisions > 0)
+            body.AddForce(new Vector2(0, 1) * 400f);
+    }
+    
+    public void Throw(InputAction.CallbackContext context) {
+        // Debug.Log(context.phase);
+        if (context.performed) {
             var throwed = Instantiate(throwable) as Rigidbody2D;
             animator.SetBool("Throws", true);
             StartCoroutine(changeAnimationNormal(0.5f));
             throwingSoundSource.Play();
         }
-        animator.SetFloat("SpeedUp", body.velocity.y);
-        animator.SetFloat("SpeedBack", Mathf.Abs(body.velocity.x));
+    }
+
+    private void FliperCheck() {
+        if (body.velocity.x < -0.01) {
+            transform.localRotation = Quaternion.Euler(0, 180, 0);
+        }
+        else if (body.velocity.x > 0.01) {
+            transform.localRotation = Quaternion.Euler(0, 0, 0);
+        }
     }
 
     void FixedUpdate()
     {
-        if (body.velocity.x < -0.01)
-         {
-             transform.localRotation = Quaternion.Euler(0, 180, 0);
-         }
-         else if (body.velocity.x > 0.01)
-         {
-             transform.localRotation = Quaternion.Euler(0, 0, 0);
-         }
+        FliperCheck();
         if(body.velocity.x == 0 && runningSoundSource.isPlaying) {
             runningSoundSource.Stop();
         }
@@ -74,6 +74,8 @@ public class PlayerMovement : MonoBehaviour
         {
             runningSoundSource.Play();
         }
+        animator.SetFloat("SpeedUp", body.velocity.y);
+        animator.SetFloat("SpeedBack", Mathf.Abs(body.velocity.x));
     }
 
     IEnumerator changeAnimationNormal(float sec) {
