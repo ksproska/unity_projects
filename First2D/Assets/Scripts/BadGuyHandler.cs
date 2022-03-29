@@ -5,7 +5,9 @@ using UnityEngine;
 public class BadGuyHandler : MonoBehaviour
 {
     private int hitTimes = 3;
+    [SerializeField]
     public Animator animator;
+    [SerializeField]
     public AudioSource hitSoundSource;
     private Rigidbody2D body;
     void Start()

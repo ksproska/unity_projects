@@ -12,4 +12,10 @@ public class FinishLineHandler : MonoBehaviour
             SceneManager.LoadScene(nextSceneToLoad);
         }
     }
+
+    private void FixedUpdate() {
+        if(Input.GetKey(KeyCode.M)) {
+            SceneManager.LoadScene("Menu");
+        }
+    }
 }
