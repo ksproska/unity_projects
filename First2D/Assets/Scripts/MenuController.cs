@@ -43,10 +43,12 @@ public class MenuController : MonoBehaviour
     }
 
     public void DestroyAllDontDestroyOnLoadObjects() {
-        var go = new GameObject("Sacrificial Lamb");
+        var go = new GameObject("Temp");
         DontDestroyOnLoad(go);
-        foreach(var root in go.scene.GetRootGameObjects())
-            Destroy(root);
-
+        foreach(var root in go.scene.GetRootGameObjects()) {
+            if(root.tag == "Music" || root.tag == "Temp") {
+                Destroy(root);
+            }
+        }
     }
 }

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Throwed
   - BadGuy
+  - Music
   layers:
   - Default
   - TransparentFX

@@ -11,19 +11,18 @@ public class BadGuyHandler : MonoBehaviour
     {
         body = gameObject.GetComponent<Rigidbody2D>();
         body.freezeRotation = true;
-
     }
 
     void FixedUpdate()
     {
         if (body.velocity.x < -0.01)
-         {
-             transform.localRotation = Quaternion.Euler(0, 180, 0);
-         }
-         else if (body.velocity.x > 0.01)
-         {
-             transform.localRotation = Quaternion.Euler(0, 0, 0);
-         }
+        {
+            transform.localRotation = Quaternion.Euler(0, 180, 0);
+        }
+        else if (body.velocity.x > 0.01)
+        {
+            transform.localRotation = Quaternion.Euler(0, 0, 0);
+        }
          animator.SetFloat("SpeedBack", Mathf.Abs(body.velocity.x));
     }
 
