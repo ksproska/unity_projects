@@ -6,9 +6,9 @@ using UnityEngine.UI;
 public class HealthController : MonoBehaviour
 {
     public Image heart1, heart2, heart3;
-    private Image[] hearts;
+    private static Image[] hearts;
     private static Sprite fullHealth, noneHealth;
-    private int currentHealth;
+    private static int currentHealth;
     void Start()
     {
         currentHealth = 3;
@@ -22,7 +22,7 @@ public class HealthController : MonoBehaviour
         
     }
 
-    void subHealth() {
+    static void subHealth() {
         currentHealth -= 1;
         hearts[currentHealth].sprite = noneHealth;
     }
