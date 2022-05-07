@@ -85,4 +85,10 @@ public class AnimationScript : MonoBehaviour {
             }
         }
 	}
+
+    public void collect() {
+        isFloating = false;
+        gameObject.GetComponent<Renderer>().material.SetColor("_Color", Color.red);
+        Destroy(gameObject, 0.2f);
+    }
 }
