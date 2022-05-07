@@ -25,9 +25,11 @@ public class AnimationScript : MonoBehaviour {
     public float scaleRate;
     private float scaleTimer;
 
+    public bool isBeingCollected;
+
 	// Use this for initialization
 	void Start () {
-	
+        isBeingCollected = false;
 	}
 	
 	// Update is called once per frame
@@ -87,6 +89,7 @@ public class AnimationScript : MonoBehaviour {
 	}
 
     public void collect() {
+        isBeingCollected = true;
         isFloating = false;
         gameObject.GetComponent<Renderer>().material.SetColor("_Color", Color.red);
         Destroy(gameObject, 0.2f);
