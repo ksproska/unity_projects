@@ -14,14 +14,14 @@ public class CollectPoints : MonoBehaviour
 
     void Start () {
         currentPoints = 0;
+        pointsCounter.text = $"Score: {currentPoints}";
     }
 
-    void Update () {
-        Pickup ();
-        pointsCounter.text = "Points: " + currentPoints;
+    void Update() {
+        Collect();
     }
 
-    void Pickup (){
+    void Collect() {
         RaycastHit hit;
         //Ray ray = camera.ScreenPointToRay (Input.mousePosition);
 
@@ -32,6 +32,7 @@ public class CollectPoints : MonoBehaviour
                 {
                     currentPoints += 1;
                     collectable.collect();
+                    pointsCounter.text = $"Score: {currentPoints}";
                     collectSound.Play();
                 }
             }
