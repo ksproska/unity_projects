@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class CollectPoints : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class CollectPoints : MonoBehaviour
     public AudioSource collectSound;
     CursorLockMode cursorLock;
     private int currentPoints;
+    private int currentMaxPoints = 16;
 
     void Start () {
         currentPoints = 0;
@@ -35,6 +37,11 @@ public class CollectPoints : MonoBehaviour
                     pointsCounter.text = $"Score: {currentPoints}";
                     collectSound.Play();
                     HealthController.addHealth();
+                }
+                if (currentPoints == currentMaxPoints)
+                {
+                    MenuController.textToSet = "You won!";
+                    SceneManager.LoadScene("Menu");
                 }
             }
         }
