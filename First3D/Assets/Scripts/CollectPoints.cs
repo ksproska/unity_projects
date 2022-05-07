@@ -34,6 +34,7 @@ public class CollectPoints : MonoBehaviour
                     collectable.collect();
                     pointsCounter.text = $"Score: {currentPoints}";
                     collectSound.Play();
+                    HealthController.addHealth();
                 }
             }
         }

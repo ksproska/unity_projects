@@ -7,14 +7,11 @@ public class HealthController : MonoBehaviour
 {
     public Image heart1, heart2, heart3;
     private static Image[] hearts;
-    private static Sprite fullHealth, noneHealth;
     private static int currentHealth;
     void Start()
     {
         currentHealth = 3;
         hearts = new Image[]{heart1, heart2, heart3};
-        fullHealth = Resources.Load("mini-heart/miniheart_0", typeof(Sprite)) as Sprite;
-        noneHealth = Resources.Load("mini-heart/miniheart_1", typeof(Sprite)) as Sprite;
     }
 
     void Update()
@@ -22,8 +19,18 @@ public class HealthController : MonoBehaviour
         
     }
 
-    static void subHealth() {
-        currentHealth -= 1;
-        hearts[currentHealth].sprite = noneHealth;
+    public static void subHealth() {
+        if (currentHealth >= 1)
+        {
+            currentHealth -= 1;
+            hearts[currentHealth].enabled = false;
+        }
+    }
+    public static void addHealth() {
+        if (currentHealth < 3)
+        {
+            hearts[currentHealth].enabled = true;
+            currentHealth += 1;
+        }
     }
 }
