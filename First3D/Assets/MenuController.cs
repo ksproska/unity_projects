@@ -11,6 +11,7 @@ public class MenuController : MonoBehaviour
     public static string textToSet = "";
     void Start()
     {
+        Cursor.lockState = CursorLockMode.None;
         infoText.text = textToSet;
     }
 

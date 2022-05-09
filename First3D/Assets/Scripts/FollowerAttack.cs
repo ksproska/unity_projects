@@ -4,18 +4,12 @@ using UnityEngine;
 
 public class FollowerAttack : MonoBehaviour
 {
-    void Start()
-    {
-        
-    }
-    void Update()
-    {
-        
-    }
+    public AudioSource hurt;
     private void OnCollisionEnter(Collision other) {
         if (other.gameObject.tag == "Player")
         {
             HealthController.subHealth();
+            hurt.Play();
         }
     }
 }
